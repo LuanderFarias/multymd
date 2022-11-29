@@ -18,16 +18,16 @@ Get file important information like creation date, size, metadata and more...
 
 ### Music
 
-A simple music player with library functions.
+A simple music player.
 
 ## Download
-You can download cheep from releases on the official github repository, microsoft store, snapcraft or on the website.
+You can download MultyMD from releases on the official github repository.
 - [Github](https://github.com/luanderfarias/multymd/releases)
 
 ## Dev Stuff
 
 ### Prerequisites
-Requirements for develop, push and test cheep.
+Requirements for develop, push and test MultyMD.
 - [Python](https://www.python.org/)
 - [Kivy](https://kivy.org/)
 - [KivyMD](https://kivymd.readthedocs.io/en/1.1.1/)
