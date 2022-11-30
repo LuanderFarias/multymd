@@ -197,7 +197,7 @@ class MeuApp(MDApp):
     dialog = None
     def build(self):
         self.title = 'MultyMD'
-        self.icon = 'icon.png'
+        self.icon = 'images/icon.png'
         self.theme_cls.theme_style = 'Dark'
         self.theme_cls.primary_palette = 'Gray'
         return Builder.load_string(KV)
