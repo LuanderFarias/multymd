@@ -24,6 +24,14 @@ A simple music player.
 You can download MultyMD from releases on the official github repository.
 - [Github](https://github.com/luanderfarias/multymd/releases)
 
+## Roadmap
+
+The project developement roadmap, some of the itens may be slow to develop...
+- [x] Wallpaper Module
+- [ ] Keys Module
+- [ ] Files Module
+- [ ] Music Module
+
 ## Dev Stuff
 
 ### Prerequisites
@@ -31,6 +39,7 @@ Requirements for develop, push and test MultyMD.
 - [Python](https://www.python.org/)
 - [Kivy](https://kivy.org/)
 - [KivyMD](https://kivymd.readthedocs.io/en/1.1.1/)
+- [pynput](https://pypi.org/project/pynput/)
 
 ### Installing
 
