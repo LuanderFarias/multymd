@@ -1,3 +1,11 @@
+<p align="center">
+
+```sh
+This project was paused because of problems with school. Gonna get back in 2023 or sooner...
+```
+
+</p>
+
 # MultyMD
 
 Multymd Is a **Multifunctional** program that i made for training python and kivy/kivymd. My idea was to make a program with lots of functions cause with that i learn simple ui developement in kivy and also complex commands and functions in python.
