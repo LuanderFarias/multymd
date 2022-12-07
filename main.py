@@ -1,14 +1,19 @@
+import os
+from kivy.app import App
 from kivymd.app import MDApp
 from kivy.lang import Builder
 from kivy.uix.screenmanager import Screen, ScreenManager
 from kivymd.uix.floatlayout import FloatLayout
 from kivymd.uix.button import MDRectangleFlatButton
 from kivy.uix.button import Button
+from kivy.uix.image import Image, AsyncImage
 from kivymd.uix.dialog import MDDialog
 from tkinter import *
 from tkinter import filedialog
-import ctypes
+import ctypes, win32con
 from pynput import keyboard
+import shutil
+import time
 
 KV = '''
 
@@ -20,7 +25,7 @@ GerenciadorDeTelas:
     Files:
     Music:
 
-<TelaMain>: 
+<TelaMain>:
     BoxLayout:
         Menu:
 
@@ -44,7 +49,8 @@ GerenciadorDeTelas:
         pos_hint:{'center_x': .5, 'center_y': .6}
         text: 'Wallpaper'
         md_bg_color: 'white'
-        on_release: app.root.current = 'Wallpaper'
+        on_release:
+            app.root.current = 'Wallpaper'
 
     MDRaisedButton:
         size_hint_x: .3
@@ -79,52 +85,57 @@ GerenciadorDeTelas:
         on_release:
             import webbrowser
             webbrowser.open('http://www.github.com/luanderfarias/multymd')
-    
+
     MDIconButton:
-        pos_hint:{'center_x': .8, 'center_y': .1}
+        pos_hint:{'center_x': .1, 'center_y': .1}
         icon: 'instagram'
         on_release:
             import webbrowser
             webbrowser.open('https://www.instagram.com/luanderfarias/')
 
-    MDIconButton:
-        pos_hint:{'center_x': .1, 'center_y': .1}
-        icon: 'white-balance-sunny'
-        on_press:
-            app.LightTheme()
-
-    MDIconButton:
-        pos_hint:{'center_x': .2, 'center_y': .1}
-        icon: 'weather-night'
-        on_press:
-            app.DarkTheme()
-
 <Wallpaper>:
     name: 'Wallpaper'
+    BoxLayout:
+        canvas:
+            Color:
+                rgb: 0.0705882352941176, 0.0705882352941176, 0.0705882352941176
+            Rectangle:
+                size: self.size
+                pos: self.pos
+        padding: 35
+        spacing: 10
+        size_hint: 1, .78
+        pos_hint: {'top': 1}
+        height: 44
+        
+        Image:
+            id: currentdesktop
+            source: 'wallpaper/wallpaper.jpg'
+
     MDRaisedButton:
-        size_hint_x: .5
-        pos_hint:{'center_x': .5, 'center_y': .6}
+        size_hint_x: .9
+        pos_hint:{'center_x': .5, 'center_y': .18}
         text: 'Select File'
         md_bg_color: 'white'
         on_press:
             app.browseFiles()
     
     MDRaisedButton:
-        size_hint_x: .5
-        pos_hint:{'center_x': .5, 'center_y': .5}
+        size_hint_x: .9
+        pos_hint:{'center_x': .5, 'center_y': .1}
         text: 'Apply'
         md_bg_color: 'white'
         on_press:
             app.change_wall()
     
     MDRaisedButton:
-        pos_hint:{'center_x': .1, 'center_y': .9}
+        pos_hint:{'center_x': .06, 'center_y': .95}
         text: '<'
         on_release: app.root.current = 'Menu'
         md_bg_color: 'red'
     
     MDLabel:
-        pos_hint: {"center_x": .5, "center_y": .4}
+        pos_hint: {"center_x": .5, "center_y": .04}
         halign: "center"
         text: 'Support for .png, .jpeg and .img'
         text_color: 'gray'
@@ -202,14 +213,40 @@ class MeuApp(MDApp):
         self.theme_cls.primary_palette = 'Gray'
         return Builder.load_string(KV)
     
-    # Color Themes
-    def LightTheme(self):
-        self.theme_cls.theme_style = 'Light'
-    
-    def DarkTheme(self):
-        self.theme_cls.theme_style = 'Dark'
-    
     # Wallpaper
+    global ubuf
+    global desktop
+    global current
+
+    def getWallpaper():
+        ubuf = ctypes.create_unicode_buffer(512)
+        ctypes.windll.user32.SystemParametersInfoW(win32con.SPI_GETDESKWALLPAPER,len(ubuf),ubuf,0)
+        return ubuf.value
+    
+    desktop = getWallpaper()
+    print(desktop)
+
+    wallpaperfile = os.path.basename(desktop)
+    print(wallpaperfile)
+
+    # Checking if wallpaper repository exists, if not creating one
+    if os.path.isdir('wallpaper') == True:
+        print('directory already exists.')
+    elif os.path.isdir('wallpaper') == False:
+        print("Creating wallpaper directory...")
+        os.makedirs('wallpaper')
+
+    dest_dir = os.getcwd() + '/wallpaper'
+    src_file = os.path.join(desktop)
+    shutil.copy(src_file, dest_dir)
+
+    dst_file = os.path.join(dest_dir, wallpaperfile)
+    new_dst_file_name = os.path.join(dest_dir, 'wallpaper.jpg')
+    os.rename(dst_file, new_dst_file_name)
+    os.chdir(dest_dir)
+
+    print(os.listdir())
+
     def close_dialog(self, obj):
         self.dialog.dismiss()
 
@@ -254,3 +291,5 @@ class MeuApp(MDApp):
     listener.start()
 
 MeuApp().run()
+
+os.remove(os.getcwd() + '\wallpaper.jpg')
