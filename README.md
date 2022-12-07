@@ -1,11 +1,3 @@
-<p align="center">
-
-```sh
-This project was paused because of problems with school. Gonna get back in 2023 or sooner...
-```
-
-</p>
-
 # MultyMD
 
 Multymd Is a **Multifunctional** program that i made for training python and kivy/kivymd. My idea was to make a program with lots of functions cause with that i learn simple ui developement in kivy and also complex commands and functions in python.
@@ -24,9 +16,9 @@ Show the keyboard key your pressing and her javascript keycode.
 
 Get file important information like creation date, size, metadata and more...
 
-### Music
+### Speednet
 
-A simple music player.
+A simple internet speed test
 
 ## Download
 You can download MultyMD from releases on the official github repository.
@@ -38,7 +30,7 @@ The project developement roadmap, some of the itens may be slow to develop...
 - [x] Wallpaper Module
 - [ ] Keys Module
 - [ ] Files Module
-- [ ] Music Module
+- [ ] Speednet Module
 
 ## Dev Stuff
 
@@ -54,13 +46,13 @@ Requirements for develop, push and test MultyMD.
 1.Clone the repository
 
 ```sh
-  git clone https://github.com/luanderfarias/multymd
+git clone https://github.com/luanderfarias/multymd
 ```
 
 2.Cd in the project paste
 
 ```sh
-  cd multymd
+cd multymd
 ```
 
 ## Running the tests
@@ -68,7 +60,7 @@ Requirements for develop, push and test MultyMD.
 ### Dev tests
 
 ```sh
-  python main.py
+python main.py
 ```
 
 ## Built With
